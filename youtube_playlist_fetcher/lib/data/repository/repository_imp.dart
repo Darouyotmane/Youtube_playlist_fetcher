@@ -6,7 +6,7 @@ import 'package:youtube_playlist_fetcher/main.dart';
 class RepositoryImp implements Repository{
   RemoteDataSourceImp remoteDataSource =getIt();
   @override
-  Future<List<PlaylistItem>> fetchPlayListItems() async{
+  Future<List<Snippet>> fetchPlayListItems() async{
     return await remoteDataSource.fetchPlayListItems();
   }
 }

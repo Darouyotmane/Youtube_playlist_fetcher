@@ -26,7 +26,7 @@ class PlaylistItem {
   factory PlaylistItem.fromJson(Map<String, dynamic> json) => PlaylistItem(
     kind: json["kind"],
     etag: json["etag"],
-    nextPageToken: json["nextPageToken"],
+    nextPageToken: json["nextPageToken"]??'',
     items: List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
     pageInfo: PageInfo.fromJson(json["pageInfo"]),
   );
@@ -46,18 +46,24 @@ class Item {
     required this.etag,
     required this.id,
     required this.snippet,
+    required this.contentDetails,
+    required this.status,
   });
 
   String kind;
   String etag;
   String id;
   Snippet snippet;
+  ContentDetails contentDetails;
+  Status status;
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
     kind: json["kind"],
     etag: json["etag"],
     id: json["id"],
     snippet: Snippet.fromJson(json["snippet"]),
+    contentDetails: ContentDetails.fromJson(json["contentDetails"]),
+    status: Status.fromJson(json["status"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -65,6 +71,28 @@ class Item {
     "etag": etag,
     "id": id,
     "snippet": snippet.toJson(),
+    "contentDetails": contentDetails.toJson(),
+    "status": status.toJson(),
+  };
+}
+
+class ContentDetails {
+  ContentDetails({
+    required this.videoId,
+    required this.videoPublishedAt,
+  });
+
+  String videoId;
+  DateTime videoPublishedAt;
+
+  factory ContentDetails.fromJson(Map<String, dynamic> json) => ContentDetails(
+    videoId: json["videoId"],
+    videoPublishedAt: DateTime.parse(json["videoPublishedAt"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "videoId": videoId,
+    "videoPublishedAt": videoPublishedAt.toIso8601String(),
   };
 }
 
@@ -149,30 +177,30 @@ class Thumbnails {
     required this.thumbnailsDefault,
     required this.medium,
     required this.high,
-    required this.standard,
-    required this.maxres,
+    this.standard,
+    this.maxres,
   });
 
   Default thumbnailsDefault;
   Default medium;
   Default high;
-  Default standard;
-  Default maxres;
+  Default? standard;
+  Default? maxres;
 
   factory Thumbnails.fromJson(Map<String, dynamic> json) => Thumbnails(
     thumbnailsDefault: Default.fromJson(json["default"]),
     medium: Default.fromJson(json["medium"]),
     high: Default.fromJson(json["high"]),
-    standard: Default.fromJson(json["standard"]),
-    maxres: Default.fromJson(json["maxres"]),
+    standard: json["standard"] == null ? null : Default.fromJson(json["standard"]),
+    maxres: json["maxres"] == null ? null : Default.fromJson(json["maxres"]),
   );
 
   Map<String, dynamic> toJson() => {
     "default": thumbnailsDefault.toJson(),
     "medium": medium.toJson(),
     "high": high.toJson(),
-    "standard": standard.toJson(),
-    "maxres": maxres.toJson(),
+    "standard": standard?.toJson(),
+    "maxres": maxres?.toJson(),
   };
 }
 
@@ -197,6 +225,22 @@ class Default {
     "url": url,
     "width": width,
     "height": height,
+  };
+}
+
+class Status {
+  Status({
+    required this.privacyStatus,
+  });
+
+  String privacyStatus;
+
+  factory Status.fromJson(Map<String, dynamic> json) => Status(
+    privacyStatus: json["privacyStatus"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "privacyStatus": privacyStatus,
   };
 }
 

@@ -1,0 +1,8 @@
+class Constants{
+  static const BASE_URL_YOUTUBE_DATA = "www.googleapis.com";
+  static const END_POINT_YOUTUBE_DATA = "/youtube/v3/playlistItems";
+  static const String API_KEY = "AIzaSyA22CXD2ZedR3Ju2IWGDIbKx0NZ_B3-PxU";
+ // static const PLAYLIST_ID = "PL4cUxeGkcC9jLYyp2Aoh6hcWuxFDX6PBJ";
+  static const PLAYLIST_ID = "PL-ySMRsZSpXSjEzaT_-BtnREpg6nFLOKt";
+  static const PART = "id,snippet,contentDetails,status";
+}
