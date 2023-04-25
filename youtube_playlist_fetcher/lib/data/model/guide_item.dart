@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-PlaylistItem playlistItemFromJson(String str) => PlaylistItem.fromJson(json.decode(str));
+GuideItem playlistItemFromJson(String str) => GuideItem.fromJson(json.decode(str));
 
-String playlistItemToJson(PlaylistItem data) => json.encode(data.toJson());
+String playlistItemToJson(GuideItem data) => json.encode(data.toJson());
 
-class PlaylistItem {
-  PlaylistItem({
+class GuideItem {
+  GuideItem({
     required this.kind,
     required this.etag,
     required this.nextPageToken,
@@ -23,7 +23,7 @@ class PlaylistItem {
   List<Item> items;
   PageInfo pageInfo;
 
-  factory PlaylistItem.fromJson(Map<String, dynamic> json) => PlaylistItem(
+  factory GuideItem.fromJson(Map<String, dynamic> json) => GuideItem(
     kind: json["kind"],
     etag: json["etag"],
     nextPageToken: json["nextPageToken"]??'',

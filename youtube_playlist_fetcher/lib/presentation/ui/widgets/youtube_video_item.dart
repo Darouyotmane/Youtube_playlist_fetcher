@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:youtube_playlist_fetcher/data/model/playlist_item.dart';
+import 'package:youtube_playlist_fetcher/data/model/guide_item.dart';
 import 'package:youtube_playlist_fetcher/presentation/ressources/colors_manager.dart';
 import 'package:youtube_playlist_fetcher/presentation/ressources/sizes_manager.dart';
 import 'package:youtube_playlist_fetcher/presentation/ressources/styles_manager.dart';
@@ -8,8 +8,10 @@ import 'package:youtube_playlist_fetcher/presentation/ui/youtube_play_video.dart
 
 class YoutubeVideoItem extends StatelessWidget {
   Snippet snippet;
+  ContentDetails contentDetails;
 
-  YoutubeVideoItem(this.snippet, {Key? key}) : super(key: key);
+
+  YoutubeVideoItem(this.snippet,this.contentDetails, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,23 +19,24 @@ class YoutubeVideoItem extends StatelessWidget {
     return InkWell(
       onTap: (){
         Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => YoutubePlayVideo('K1-quHXeSF4')));
+            MaterialPageRoute(builder: (context) => YoutubePlayVideo(contentDetails.videoId)));
 
       },
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
+            alignment: Alignment.center,
             children: [
               Container(
-                width: widthScreen * .40,
-                height: widthScreen * .40,
+                width: widthScreen * .33,
+                height: widthScreen * .45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(AppSizes.borderRadius),
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: NetworkImage(snippet.thumbnails.high.url),
-                  ) /*CachedNetworkImageProvider( snippet.thumbnails.high.url,)*/,
+                  ) ,
                 ),
               ),
               Icon(
@@ -42,7 +45,6 @@ class YoutubeVideoItem extends StatelessWidget {
                 size: 45,
               )
             ],
-            alignment: Alignment.center,
           ),
           Flexible(
             child: Padding(

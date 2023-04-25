@@ -1,19 +1,19 @@
 import 'package:youtube_playlist_fetcher/app/constants.dart';
 import 'package:youtube_playlist_fetcher/data/api_service.dart';
-import 'package:youtube_playlist_fetcher/data/model/playlist_item.dart';
+import 'package:youtube_playlist_fetcher/data/model/guide_item.dart';
 import 'dart:convert' as convert;
 
 import 'package:http/http.dart' as http;
-import 'package:youtube_playlist_fetcher/data/model/playlist_item.dart';
+import 'package:youtube_playlist_fetcher/data/model/guide_item.dart';
 
-abstract class RemoteDataSource{
-  Future<List<Snippet>> fetchPlayListItems();
+abstract class GuideRemoteDataSource{
+  Future<List<Item>> fetchPlayListItems();
 }
-class RemoteDataSourceImp implements RemoteDataSource{
+class GuideRemoteDataSourceImp implements GuideRemoteDataSource{
 
   @override
-  Future<List<Snippet>> fetchPlayListItems() async {
-    List<Snippet> snippet = [];
+  Future<List<Item>> fetchPlayListItems() async {
+    List<Item> snippet = [];
     ApiService apiService = ApiService();
     apiService.fetchPlaylistItems();
 
@@ -21,8 +21,8 @@ class RemoteDataSourceImp implements RemoteDataSource{
 
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonResponse = convert.jsonDecode(response.body);
-      PlaylistItem.fromJson(jsonResponse).items.forEach((element) {
-        snippet.add(element.snippet);
+      GuideItem.fromJson(jsonResponse).items.forEach((element) {
+        snippet.add(element);
         print('title-> ${element.snippet.title}');
       });
       return snippet;

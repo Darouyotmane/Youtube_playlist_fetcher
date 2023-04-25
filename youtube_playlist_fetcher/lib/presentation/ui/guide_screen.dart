@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_playlist_fetcher/data/api_service.dart';
-import 'package:youtube_playlist_fetcher/presentation/controllers/play_list_items_cubit.dart';
+import 'package:youtube_playlist_fetcher/presentation/controllers/guide_items_cubit.dart';
 import 'package:youtube_playlist_fetcher/presentation/ressources/colors_manager.dart';
-import 'package:youtube_playlist_fetcher/presentation/ui/widgets/body_youtube_play_list.dart';
+import 'package:youtube_playlist_fetcher/presentation/ui/widgets/body_guide_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class YoutubePlayListView extends StatefulWidget {
-  const YoutubePlayListView({Key? key}) : super(key: key);
+class GuideScreen extends StatefulWidget {
+  const GuideScreen({Key? key}) : super(key: key);
 
   @override
-  State<YoutubePlayListView> createState() => _YoutubePlayListViewState();
+  State<GuideScreen> createState() => _GuideScreenState();
 }
 
-class _YoutubePlayListViewState extends State<YoutubePlayListView> {
+class _GuideScreenState extends State<GuideScreen> {
  @override
   void initState() {
-   BlocProvider.of<PlayListItemsCubit>(context).fetchPlayListItems();
+   BlocProvider.of<GuideItemsCubit>(context).fetchPlayListItems();
 
    //_fetchPlaylistItems();//todo to remove
     super.initState();
@@ -25,9 +25,9 @@ class _YoutubePlayListViewState extends State<YoutubePlayListView> {
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
       appBar: AppBar(
-        title: Text('YouTube PlayList'),
+        title: Text('YouTube Data Api PlaylistItems'),
       ),
-      body: BodyYoutubePlayList(),
+      body: BodyGuideScreen(),
     );
   }
 //todo to remove

@@ -1,5 +1,5 @@
-import 'package:youtube_playlist_fetcher/data/model/playlist_item.dart';
+import 'package:youtube_playlist_fetcher/data/model/guide_item.dart';
 
-abstract class Repository{
-  Future<List<Snippet>> fetchPlayListItems();
+abstract class GuideRepository{
+  Future<List<Item>> fetchPlayListItems();
 }
